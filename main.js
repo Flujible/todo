@@ -61,7 +61,8 @@ const updateList = () => {
 }
 
 const removeElement = (e) => {
-  const itemId = e.srcElement.parentNode.id;
+  const item = e.srcElement.parentNode;
+  const itemId = item.id;
   const taskList = JSON.parse(localStorage.tasks);
   let indexToRemove;
   taskList.map((task, i) => {
@@ -71,7 +72,7 @@ const removeElement = (e) => {
   taskList.splice(indexToRemove, 1);
 
   localStorage.setItem("tasks", JSON.stringify(taskList));
-  e.srcElement.parentNode.parentNode.removeChild(e.srcElement.parentNode);
+  item.parentNode.removeChild(item);
 }
 
 const setupList = () => {
