@@ -4,7 +4,7 @@ body {
 }
 
 #app {
-  max-width: 75%;
+  max-width: 85%;
   margin: auto;
 }
 
@@ -17,6 +17,10 @@ body {
 #list {
   font-size: 2em;
   padding: 0 40px;
+}
+
+#checklist {
+  padding-inline-start: 0;
 }
 
 #checklist li {
@@ -45,8 +49,43 @@ body {
   color: #535355;
 }
 
-#delete:hover {
+#delete:hover,
+#delete:focus {
   color: #db0000;
+}
+
+#moveDown {
+  position: absolute;
+  font-size: 0.75em;
+  top: 0;
+  right: 33px;
+  margin-top: 12px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #535355;
+}
+
+#moveDown:hover,
+#moveDown:focus {
+  color: #000;
+}
+
+#moveUp {
+  position: absolute;
+  font-size: 0.75em;
+  top: 0;
+  right: 66px;
+  margin-top: 12px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #535355;
+}
+
+#moveUp:hover,
+#moveUp:focus {
+  color: #000;
 }
 
 .srt {
@@ -73,7 +112,7 @@ body {
 
 .item {
   display: block;
-  padding: 0 40px;
+  padding: 0 99px 0 40px;
   line-height: 1.5em;
   min-height: 1.5em;
 }

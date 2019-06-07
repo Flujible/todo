@@ -5,10 +5,20 @@ const makeItem = (item) => {
   const text = document.createTextNode(item.title);
   const customCheck = document.createElement("span");
   const bin = document.createElement("button");
+  const moveUp = document.createElement("button");
+  const moveDown = document.createElement("button");
   bin.classList.add("fas");
   bin.classList.add("fa-trash-alt");
   bin.id = "delete";
   bin.addEventListener("click", (e) => removeElement(e));
+  moveUp.classList.add("fas");
+  moveUp.classList.add("fa-arrow-up");
+  moveUp.id = "moveUp";
+  moveUp.addEventListener("click", (e) => moveItem(e, true));
+  moveDown.classList.add("fas");
+  moveDown.classList.add("fa-arrow-down");
+  moveDown.id = "moveDown";
+  moveDown.addEventListener("click", (e) => moveItem(e, false));
   li.classList.add("todo-item");
   li.id = item.id;
   customCheck.classList.add("checkmark");
@@ -17,6 +27,8 @@ const makeItem = (item) => {
   label.appendChild(customCheck);
   label.appendChild(text);
   li.appendChild(label);
+  li.appendChild(moveUp);
+  li.appendChild(moveDown);
   li.appendChild(bin);
   check.type = "checkbox";
   item.done ? li.classList.add("done") : '';
@@ -66,13 +78,30 @@ const removeElement = (e) => {
   const taskList = JSON.parse(localStorage.tasks);
   let indexToRemove;
   taskList.map((task, i) => {
-
     task.id.toString() === itemId.toString() ? indexToRemove = i : '';
   });
   taskList.splice(indexToRemove, 1);
 
   localStorage.setItem("tasks", JSON.stringify(taskList));
   item.parentNode.removeChild(item);
+}
+
+const moveItem = (e, up) => {
+  const item = e.srcElement.parentNode;
+  const itemId = item.id;
+  const taskList = JSON.parse(localStorage.tasks);
+  let indexToMove;
+  taskList.map((task, i) => {
+    task.id.toString() === itemId.toString() ? indexToMove = i : '';
+  });
+  const itemToMove = taskList.splice(indexToMove, 1);
+  if(up) {
+    taskList.splice(indexToMove, -1, itemToMove);
+  } else {
+    taskList.splice(indexToMove, 0, itemToMove);
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(taskList));
 }
 
 const setupList = () => {
