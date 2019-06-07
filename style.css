@@ -4,7 +4,7 @@ body {
 }
 
 #app {
-  max-width: 70%;
+  max-width: 75%;
   margin: auto;
 }
 
@@ -34,8 +34,10 @@ body {
 }
 
 #delete {
+  position: absolute;
   font-size: 0.75em;
-  float: right;
+  top: 0;
+  right: 0;
   margin-top: 12px;
   cursor: pointer;
   border: none;
@@ -65,9 +67,15 @@ body {
   color: #535355;
 }
 
-.item {
+.todo-item {
   position: relative;
-  padding-left: 40px;
+}
+
+.item {
+  display: block;
+  padding: 0 40px;
+  line-height: 1.5em;
+  min-height: 1.5em;
 }
 
 .item input {
