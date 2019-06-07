@@ -75,6 +75,15 @@ body {
   cursor: pointer;
   height: 0;
   width: 0;
+  float: right;
+}
+
+.item hr {
+  padding-top: 0.75em;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1px solid black;
 }
 
 .checkmark {

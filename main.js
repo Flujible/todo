@@ -20,6 +20,7 @@ const makeItem = (item) => {
   li.appendChild(bin);
   check.type = "checkbox";
   item.done ? li.classList.add("done") : '';
+  item.break ? label.appendChild(document.createElement('hr')) : '';
   return li;
 }
 
@@ -31,7 +32,7 @@ const addNewItem = (task) => {
       id = Math.random();
     }
   });
-  tasks.push({ id: id, title: task.title, done: task.done });
+  tasks.push({ id: id, title: task.title, done: task.done, break: task.title ? false : true});
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   const todoItems = document.getElementsByClassName("todo-item");
