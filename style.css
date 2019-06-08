@@ -71,6 +71,12 @@ body {
   color: #000;
 }
 
+#moveDown:disabled,
+#moveDown:disabled:hover {
+  color: #969696;
+  cursor: not-allowed;
+}
+
 #moveUp {
   position: absolute;
   font-size: 0.75em;
@@ -86,6 +92,12 @@ body {
 #moveUp:hover,
 #moveUp:focus {
   color: #000;
+}
+
+#moveUp:disabled,
+#moveUp:disabled:hover {
+  color: #969696;
+  cursor: not-allowed;
 }
 
 .srt {

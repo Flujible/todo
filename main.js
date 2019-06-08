@@ -70,6 +70,7 @@ const updateList = () => {
 
     checklist.insertBefore(task, newItem);
   });
+  updateFirstLast();
 }
 
 const removeElement = (e) => {
@@ -84,6 +85,7 @@ const removeElement = (e) => {
 
   localStorage.setItem("tasks", JSON.stringify(taskList));
   item.parentNode.removeChild(item);
+  updateFirstLast();
 }
 
 const moveItem = (e, up) => {
@@ -94,14 +96,47 @@ const moveItem = (e, up) => {
   taskList.map((task, i) => {
     task.id.toString() === itemId.toString() ? indexToMove = i : '';
   });
-  const itemToMove = taskList.splice(indexToMove, 1);
+  const itemToMove = taskList.splice(indexToMove, 1)[0];
   if(up) {
-    taskList.splice(indexToMove, -1, itemToMove);
+    taskList.splice(indexToMove - 1, 0, itemToMove);
   } else {
-    taskList.splice(indexToMove, 0, itemToMove);
+    taskList.splice(indexToMove + 1, 0, itemToMove);
   }
-
   localStorage.setItem("tasks", JSON.stringify(taskList));
+  clearList();
+  updateList();
+}
+
+const clearList = () => {
+  const todos = document.querySelectorAll(".todo-item");
+  for(let todo of todos) {
+    todo.parentNode.removeChild(todo);
+  }
+}
+
+const updateFirstLast = () => {
+  const todos = document.querySelectorAll(".todo-item");
+  let first = null;
+  let newFirst = null;
+  let last = null;
+  let newLast = null;
+
+  if(document.querySelector(".first")) {
+    first = document.querySelector(".first");
+    first.classList.remove("first");
+    first.querySelector("button#moveUp").toggleAttribute("disabled");
+  }
+  if (document.querySelector(".last")) {
+    last = document.querySelector(".last");
+    last.classList.remove("last");
+    last.querySelector("button#moveDown").toggleAttribute("disabled");
+  }
+  newFirst = todos[0];
+  newLast = todos[todos.length - 1];
+  newFirst.classList.add("first");
+  newFirst.querySelector("button#moveUp").toggleAttribute("disabled");
+  newLast.classList.add("last");
+  newLast.querySelector("button#moveDown").toggleAttribute("disabled");
 }
 
 const setupList = () => {
