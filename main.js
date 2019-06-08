@@ -32,7 +32,7 @@ const makeItem = (item) => {
   li.appendChild(bin);
   check.type = "checkbox";
   item.done ? li.classList.add("done") : '';
-  item.break ? label.appendChild(document.createElement('hr')) : '';
+  item.break ? li.classList.add("break") : '';
   return li;
 }
 
