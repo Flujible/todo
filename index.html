@@ -6,23 +6,24 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,600" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <script type="text/javascript" src="main.js">
-  </script>
+  <link rel="stylesheet" href="dragula.min.css">
   <title>To do</title>
 </head>
 
-<body onload="setupList()">
+<body>
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="dragula.min.js"></script>
   <div id="app">
     <h1 id="header">Things to do...</h1>
     <div id="list">
       <ul id="checklist">
         <li id="newItem">
-          <form id="inputForm">
-            <label class="srt" for="newItemInput">Enter a new item</label>
-            <input id="newItemInput" type="text" placeholder="I want to...">
-          </form>
         </li>
       </ul>
+      <form id="inputForm">
+        <label class="srt" for="newItemInput">Enter a new item</label>
+        <input id="newItemInput" type="text" placeholder="I want to...">
+      </form>
     </div>
   </div>
 </body>
