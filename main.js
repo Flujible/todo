@@ -69,7 +69,6 @@ const updateList = (el) => {
   const dataItems = [];
 
   for (const todo of list) {
-    console.log(todo)
     dataItems.push({
       id: todo.id,
       title: todo.textContent,
@@ -111,22 +110,26 @@ const removeElement = (e) => {
 }
 
 const moveItem = (e, up) => {
-  const item = e.srcElement.parentNode;
-  const itemId = item.id;
-  const taskList = JSON.parse(localStorage.tasks);
-  let indexToMove;
-  taskList.map((task, i) => {
-    task.id.toString() === itemId.toString() ? indexToMove = i : '';
-  });
-  const itemToMove = taskList.splice(indexToMove, 1)[0];
-  if(up) {
-    taskList.splice(indexToMove - 1, 0, itemToMove);
+  const itemElem = e.srcElement.parentNode;
+  if (up) {
+    const sibling = itemElem.previousElementSibling;
+    itemElem.replaceWith(itemElem, sibling);
   } else {
-    taskList.splice(indexToMove + 1, 0, itemToMove);
+    const sibling = itemElem.nextElementSibling;
+    itemElem.replaceWith(sibling, itemElem);
   }
-  localStorage.setItem("tasks", JSON.stringify(taskList));
 
-  updateList();
+  const list = document.getElementsByClassName('todo-item');
+  const dataItems = [];
+  for (const todo of list) {
+    dataItems.push({
+      id: todo.id,
+      title: todo.textContent,
+      done: todo.classList.contains("done"),
+      dragged: todo.classList.contains("dragged")
+    })
+  }
+  localStorage.setItem("tasks", JSON.stringify(dataItems));
 }
 
 const updateFirstLast = () => {
@@ -178,7 +181,6 @@ window.onload = () => {
     }
   });
   drake.on('drop', (el, target, source, sibling) => {
-    console.log(el, target, source, sibling);
     el.classList.add("dragged")
     updateList(el);
   })
