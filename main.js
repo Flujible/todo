@@ -20,8 +20,9 @@ const makeItem = (item) => {
   moveDown.id = "moveDown";
   moveDown.addEventListener("click", (e) => moveItem(e, false));
   li.classList.add("todo-item");
-  li.id = item.id;
+  li.id = document.getElementsByClassName('todo-item').length + 1;
   customCheck.classList.add("checkmark");
+  label.classList.add("handle");
   label.classList.add("item");
   label.appendChild(check);
   label.appendChild(customCheck);
@@ -32,31 +33,21 @@ const makeItem = (item) => {
   li.appendChild(bin);
   check.type = "checkbox";
   item.done ? li.classList.add("done") : '';
-  item.break ? li.classList.add("break") : '';
+  item.title.length === 0 ? li.classList.add("break") : '';
   return li;
 }
 
 const addNewItem = (task) => {
-  let tasks = JSON.parse(localStorage.tasks);
-  let id = Math.random();
-  tasks.map(task => {
-    while (task.id.toString() === id.toString()) {
-      id = Math.random();
-    }
-  });
-  tasks.push({ id: id, title: task.title, done: task.done, break: task.title ? false : true});
+  const tasks = JSON.parse(localStorage.tasks);
+  const id = document.getElementsByClassName('todo-item').length + 1;
+  tasks.push({ id: id, title: task.title, done: task.done });
   localStorage.setItem("tasks", JSON.stringify(tasks));
-
-  const todoItems = document.getElementsByClassName("todo-item");
-  while (todoItems.length > 0) {
-    todoItems[0].parentNode.removeChild(todoItems[0]);
-  }
+  document.getElementById("checklist").appendChild(makeItem(task));
 
   document.getElementById("newItemInput").value = "";
-  updateList();
 }
 
-const updateList = () => {
+const initialiseList = () => {
   const taskList = JSON.parse(localStorage.tasks)
   taskList.map(item => {
     const task = makeItem(item);
@@ -71,6 +62,37 @@ const updateList = () => {
     checklist.insertBefore(task, newItem);
   });
   updateFirstLast();
+}
+
+const updateList = (el) => {
+  const list = document.getElementsByClassName('todo-item');
+  const dataItems = [];
+
+  for (const todo of list) {
+    console.log(todo)
+    dataItems.push({
+      id: todo.id,
+      title: todo.textContent,
+      done: todo.classList.contains("done"),
+      dragged: todo.classList.contains("dragged")
+    })
+  }
+
+  let indexToRemove;
+  dataItems.forEach((item, i) => {
+    if (item.id === el.id) {
+      if (!item.dragged) {
+        indexToRemove = i;
+      }
+    }
+    item.dragged = false;
+  });
+
+  if (indexToRemove) {
+    dataItems.splice(indexToRemove, 1);
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(dataItems));
 }
 
 const removeElement = (e) => {
@@ -103,15 +125,8 @@ const moveItem = (e, up) => {
     taskList.splice(indexToMove + 1, 0, itemToMove);
   }
   localStorage.setItem("tasks", JSON.stringify(taskList));
-  clearList();
-  updateList();
-}
 
-const clearList = () => {
-  const todos = document.querySelectorAll(".todo-item");
-  for(let todo of todos) {
-    todo.parentNode.removeChild(todo);
-  }
+  updateList();
 }
 
 const updateFirstLast = () => {
@@ -140,7 +155,7 @@ const updateFirstLast = () => {
 }
 
 const setupList = () => {
-  const defaultTasks = [{ id: Math.random(), title: "Open to do list", done: true }];
+  const defaultTasks = [{ id: 0, title: "Open to do list", done: true }];
   const inputForm = document.getElementById("inputForm");
   const newInputItem = document.getElementById("newItemInput");
 
@@ -151,5 +166,20 @@ const setupList = () => {
     addNewItem({ title: newInputItem.value, done: false });
   });
 
-  updateList();
+  initialiseList();
+}
+
+window.onload = () => {
+  setupList();
+  const drake = dragula([document.getElementById('checklist')], {
+    revertOnSpill: true,
+    moves: function (el, container, handle) {
+      return handle.classList.contains('handle');
+    }
+  });
+  drake.on('drop', (el, target, source, sibling) => {
+    console.log(el, target, source, sibling);
+    el.classList.add("dragged")
+    updateList(el);
+  })
 }
