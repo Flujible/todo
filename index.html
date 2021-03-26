@@ -15,16 +15,40 @@
   <script type="text/javascript" src="dragula.min.js"></script>
   <div id="app">
     <h1 id="header">Things to do...</h1>
-    <div id="list">
-      <ul id="checklist">
-        <li id="newItem">
-        </li>
-      </ul>
-      <form id="inputForm">
-        <label class="srt" for="newItemInput">Enter a new item</label>
-        <input id="newItemInput" type="text" placeholder="I want to...">
-      </form>
+    <div id="checklist-container">
+      <div class="list">
+        <p class="category-label">High priority, high urgency</p>
+        <ul id="high-priority-high-urgency" class="checklist">
+          <li id="newItem">
+          </li>
+        </ul>
+      </div>
+      <div class="list">
+        <p class="category-label">High priority, low urgency</p>
+        <ul id="high-priority-low-urgency" class="checklist">
+          <li id="newItem">
+          </li>
+        </ul>
+      </div>
+      <div class="list">
+        <p class="category-label">Low priority, high urgency</p>
+        <ul id="low-priority-high-urgency" class="checklist">
+          <li id="newItem">
+          </li>
+        </ul>
+      </div>
+      <div class="list">
+        <p class="category-label">Low priority, low urgency</p>
+        <ul id="low-priority-low-urgency" class="checklist">
+          <li id="newItem">
+          </li>
+        </ul>
+      </div>
     </div>
+    <form id="inputForm">
+      <label class="srt" for="newItemInput">Enter a new item</label>
+      <input id="newItemInput" type="text" placeholder="I want to...">
+    </form>
   </div>
 </body>
 

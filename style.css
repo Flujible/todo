@@ -14,17 +14,16 @@ body {
   margin: 0;
 }
 
-#list {
-  font-size: 2em;
-  padding: 0 40px;
-}
 
-#checklist {
+.checklist {
+  height: 100%;
+  min-height: 336px;
   padding-inline-start: 0;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 5px 15px;
 }
 
-#checklist li {
+.checklist li {
   list-style: none;
 }
 
@@ -99,6 +98,41 @@ body {
 #moveUp:disabled:hover {
   color: #969696;
   cursor: not-allowed;
+}
+
+#checklist-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#checklist-container div {
+  padding: 0;
+  flex-basis: calc(50% - 4px);
+}
+
+#checklist-container div:nth-child(1) {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#checklist-container div:nth-child(2) {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
+#checklist-container div:nth-child(3) {
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+
+#checklist-container div:nth-child(4) {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.list {
+  font-size: 2em;
+  padding: 0 40px;
 }
 
 .srt {
@@ -195,4 +229,8 @@ body {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.category-label {
+  margin: 0;
 }
