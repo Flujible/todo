@@ -227,7 +227,7 @@ body {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a transparent background */
 .item input:checked ~ .checkmark {
   background-color: transparent;
 }
