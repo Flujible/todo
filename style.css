@@ -8,6 +8,8 @@
   #422b0e
   #976321
 */
+
+* {
   font-family: Poppins;
 }
 
@@ -47,7 +49,6 @@ body {
   width: 100%;
   font-size: 1em;
   background: transparent;
-  font-family: Poppins;
   margin-top: 20px;
 }
 
