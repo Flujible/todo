@@ -43,13 +43,20 @@ body {
   list-style: none;
 }
 
-#newItemInput {
-  border: none;
-  border-bottom: 1px solid #000;
+.new-item {
+  font-size: inherit;
+}
+
+.new-item-input {
+  border: 1px solid #422b0e5c;
+  border-bottom: 1px solid #422b0e;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   width: 100%;
-  font-size: 1em;
   background: transparent;
   margin-top: 20px;
+  font-size: inherit;
+  padding: 0 5px;
 }
 
 #delete {
