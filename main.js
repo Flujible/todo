@@ -42,9 +42,9 @@ const addNewItem = (task) => {
   const id = document.getElementsByClassName('todo-item').length + 1;
   tasks.push({ id: id, title: task.title, done: task.done });
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  document.getElementById("low-priority-low-urgency").appendChild(makeItem(task));
+  document.getElementById("lp-lu").appendChild(makeItem(task));
 
-  document.getElementById("newItemInput").value = "";
+  document.getElementById("new-item-input").value = "";
 }
 
 const initialiseList = () => {
@@ -160,7 +160,7 @@ const updateFirstLast = () => {
 const setupList = () => {
   const defaultTasks = [{ id: 0, title: "Open to do list", done: true }];
   const inputForm = document.getElementById("inputForm");
-  const newInputItem = document.getElementById("newItemInput");
+  const newInputItem = document.getElementById("new-item-input");
 
   localStorage.tasks ? '' : localStorage.setItem("tasks", JSON.stringify(defaultTasks));
 
@@ -175,10 +175,10 @@ const setupList = () => {
 window.onload = () => {
   setupList();
   const drake = dragula([
-    document.getElementById('high-priority-high-urgency'),
-    document.getElementById('high-priority-low-urgency'),
-    document.getElementById('low-priority-high-urgency'),
-    document.getElementById('low-priority-low-urgency'),
+    document.getElementById('hp-hu'),
+    document.getElementById('hp-lu'),
+    document.getElementById('lp-hu'),
+    document.getElementById('lp-lu'),
   ], {
     revertOnSpill: true,
     moves: function (el, container, handle) {
