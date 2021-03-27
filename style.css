@@ -1,6 +1,18 @@
-body {
+/* Palete */
+/*
+  Pale:
+  #fdfdf5
+
+  Oranges/Browns:
+  #ec9a33
+  #422b0e
+  #976321
+*/
   font-family: Poppins;
-  background-color: #effff8;
+}
+
+body {
+  background-color: #FDFDF5;
 }
 
 #app {
@@ -12,6 +24,8 @@ body {
   font-weight: 600;
   font-size: 4em;
   margin: 0;
+  color: #ec9a33;
+  text-shadow: 2px 2px #422b0e;
 }
 
 
@@ -111,23 +125,23 @@ body {
 }
 
 #checklist-container div:nth-child(1) {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-right: 1px solid #422b0e;
+  border-bottom: 1px solid #422b0e;
 }
 
 #checklist-container div:nth-child(2) {
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border-bottom: 1px solid #422b0e;
+  border-left: 1px solid #422b0e;
 }
 
 #checklist-container div:nth-child(3) {
-  border-right: 1px solid black;
-  border-top: 1px solid black;
+  border-right: 1px solid #422b0e;
+  border-top: 1px solid #422b0e;
 }
 
 #checklist-container div:nth-child(4) {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
+  border-left: 1px solid #422b0e;
+  border-top: 1px solid #422b0e;
 }
 
 .list {
