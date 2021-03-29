@@ -40,15 +40,19 @@ const makeItem = (item) => {
 const addNewItem = (task) => {
   const tasks = JSON.parse(localStorage.tasks);
   const id = document.getElementsByClassName('todo-item').length + 1;
-  tasks.push({ id: id, title: task.title, done: task.done });
+  tasks.push({ id: id, title: task.title, done: task.done, containerId: task.containerId });
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  document.getElementById("lp-lu").appendChild(makeItem(task));
+  document.getElementById(task.containerId).appendChild(makeItem(task));
 
-  document.getElementById("new-item-input").value = "";
+  document.getElementById(`${task.containerId}-new`).value = "";
 }
 
 const initialiseList = () => {
   const taskList = JSON.parse(localStorage.tasks)
+  const hpHuList = document.getElementById('hp-hu');
+  const hpLuList = document.getElementById('hp-lu');
+  const lpHuList = document.getElementById('lp-hu');
+  const lpLuList = document.getElementById('lp-lu');
   taskList.map(item => {
     const task = makeItem(item);
     const inputEl = task.querySelector('input');
@@ -59,7 +63,20 @@ const initialiseList = () => {
       localStorage.setItem("tasks", JSON.stringify(taskList));
     }, true);
 
-    // checklist.insertBefore(task, newItem);
+    switch(item.containerId) {
+      case 'hp-hu':
+        hpHuList.appendChild(task);
+        break;
+      case 'hp-lu':
+        hpLuList.appendChild(task);
+        break;
+      case 'lp-hu':
+        lpHuList.appendChild(task);
+        break;
+      case 'lp-lu':
+        lpLuList.appendChild(task);
+        break;
+    }
   });
   // updateFirstLast();
 }
@@ -157,23 +174,30 @@ const updateFirstLast = () => {
   newLast.querySelector("button#moveDown").toggleAttribute("disabled");
 }
 
-const setupList = () => {
-  const defaultTasks = [{ id: 0, title: "Open to do list", done: true }];
-  const inputForm = document.getElementById("inputForm");
-  const newInputItem = document.getElementById("new-item-input");
+const setupPage = () => {
+  const inputForms = [
+    { formId: 'hp-hu-form', inputId: 'hp-hu-new', containerId: 'hp-hu' },
+    { formId: 'hp-lu-form', inputId: 'hp-lu-new', containerId: 'hp-lu' },
+    { formId: 'lp-hu-form', inputId: 'lp-hu-new', containerId: 'lp-hu' },
+    { formId: 'lp-lu-form', inputId: 'lp-lu-new', containerId: 'lp-lu' }
+  ];
 
-  localStorage.tasks ? '' : localStorage.setItem("tasks", JSON.stringify(defaultTasks));
-
-  inputForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    addNewItem({ title: newInputItem.value, done: false });
+  inputForms.forEach(form => {
+    document.getElementById(form.formId).addEventListener("submit", e => {
+      e.preventDefault();
+      const inputElem = document.getElementById(form.inputId);
+      addNewItem({
+        containerId: form.containerId,
+        title: inputElem.value,
+        done: false })
+    })
   });
 
   initialiseList();
 }
 
 window.onload = () => {
-  setupList();
+  setupPage();
   const drake = dragula([
     document.getElementById('hp-hu'),
     document.getElementById('hp-lu'),
